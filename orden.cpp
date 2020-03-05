@@ -27,7 +27,7 @@ int busquedaOrdenada1(int *a, int buscado, int size){
 }
 
 int busquedaAux(int *a, int inicio, int fin, int buscado){
-	for(int i=inicio; i<fin; i++){
+	for(int i=inicio; i<=fin; i++){
 		if(a[i]==buscado){
 			return i;
 		}
@@ -37,19 +37,24 @@ int busquedaAux(int *a, int inicio, int fin, int buscado){
 
 
 int busquedaOrdenada2(int *a, int size, int buscado, int paso){
-	for(int i=paso; i<size; i+=paso){
-		cout<<"fin del bloque es "<<i-1<<endl;
-		if(a[i-1]>=buscado){
-				return busquedaAux(a, i-paso, i,buscado);
+	int i=0;
+	for(i=0; i<size; i+=paso){
+		int finBloque=i+paso-1;
+		
+		if(size-1<finBloque){
+			finBloque=size-1;
+		}
+		cout<<"fin bloque: "<<finBloque<<endl;
+		if(a[finBloque]>=buscado){
+				return busquedaAux(a, i, finBloque,buscado);
 		}
 	}
 	return -1;
-
 }
 
 
 int main(){
-	int size=6;
+	int size=7;
 	int *a=new int[size]();
 	a[0]=1;
 	a[1]=3;
@@ -57,6 +62,10 @@ int main(){
 	a[3]=7;
 	a[4]=9;
 	a[5]=11;
-	cout<<busquedaOrdenada2(a, size, 7, 2)<<endl;
+	a[6]=13;
+
+
+
+	cout<<busquedaOrdenada2(a, size, 15, 30)<<endl;
 	return 0;
 }
