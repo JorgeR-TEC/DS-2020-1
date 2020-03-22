@@ -16,7 +16,31 @@ int factorialR(int n){
 	}
 }
 
+int multiplicacion(int a, int b){
+	if(b==1){
+		return a;
+	}else{
+		return a+multiplicacion(a, b-1);
+	}
+}
+
+int vocalesAux(string s, int actual, int cantidad){
+	if(s.length()==actual){//ya no hay mas letras por leer
+		return cantidad;
+	}else{
+		if(s[actual]=='a'||s[actual]=='e'||s[actual]=='i'||s[actual]=='o'||s[actual]=='u'){
+			return vocalesAux(s, actual+1, cantidad+1);
+		}else{
+			return vocalesAux(s, actual+1, cantidad);
+		}
+	}
+}
+
+int vocales(string s){
+	return vocalesAux(s, 0,0);
+}
+
 int main(){
-	int res=factorialR(5);
+	int res=vocales("perro");
 	cout<<res<<endl;
 }
