@@ -1,7 +1,7 @@
 #include <iostream>
-
+#include <chrono>
 using namespace std;
-
+using namespace std::chrono;
 int busquedaSecuencial(int *a, int buscado, int size){
 	for(int i=0; i<size; i++){
 		if(a[i]==buscado){
@@ -52,20 +52,36 @@ int busquedaOrdenada2(int *a, int size, int buscado, int paso){
 	return -1;
 }
 
+int busquedaBinaria(int *a, int inicio, int fin, int buscado){
+	if(fin<inicio){
+		return -1;
+	}
+	int medio=(fin+inicio)/2;
+	if(buscado==a[medio]){
+		return medio;
+	}else if(buscado<a[medio]){
+		return busquedaBinaria(a, inicio, medio-1, buscado);
+	}else{
+		return busquedaBinaria(a, medio+1, fin, buscado);
+	}
+}
+
 
 int main(){
-	int size=7;
+	int size=10000;
 	int *a=new int[size]();
-	a[0]=1;
-	a[1]=3;
-	a[2]=5;
-	a[3]=7;
-	a[4]=9;
-	a[5]=11;
-	a[6]=13;
-
-
-
-	cout<<busquedaOrdenada2(a, size, 15, 30)<<endl;
+	for(int i=0; i<size; i++){
+		a[i]=i;
+	}
+	auto inicial=high_resolution_clock::now();
+	busquedaBinaria(a, 0, size-1, 1000);
+	auto fin=high_resolution_clock::now();
+	auto duracion=duration_cast<nanoseconds>(fin-inicial).count();
+	cout<<"Binaria\t"<<duracion<<endl;
+	inicial=high_resolution_clock::now();
+	busquedaSecuencial(a, 1000, size);
+	fin=high_resolution_clock::now();
+	duracion=duration_cast<nanoseconds>(fin-inicial).count();
+	cout<<"secuencial\t"<<duracion<<endl;
 	return 0;
 }
