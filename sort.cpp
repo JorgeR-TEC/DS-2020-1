@@ -30,10 +30,27 @@ class LuckySort: public Sort<T>{
 	}
 };
 
+template <class T>
+class SelectionSort: public Sort<T>{
+	public:
+	void sort(T *a, int size){
+		for(int i=0; i<size-1; i++){
+			int p=i;
+			for(int j=i+1; j<size; j++){
+				if(a[j]<a[p]){
+					p=j;
+				}
+			}
+			this->intercambiar(a, i, p);
+		}
+	}
+};
+
+
 int main(){
 	int size=5;
 	int a[size]={5,4,3,2,1};
-	LuckySort<int> s;
+	SelectionSort<int> s;
 	s.imprimirArreglo(a, size);
 	s.sort(a, size);
 	s.imprimirArreglo(a,size);
