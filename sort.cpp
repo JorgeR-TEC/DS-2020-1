@@ -46,13 +46,103 @@ class SelectionSort: public Sort<T>{
 	}
 };
 
+template <class T>
+class BubbleSort: public Sort<T>{
+	public:
+	void sort(T *a, int size){
+		int it=0;
+		for(int i=0; i<size-1; i++){
+			bool ordenado=true;
+			for(int j=0; j<size-1-i; j++){
+				it++;
+				if(a[j]>a[j+1]){
+					this->intercambiar(a, j+1, j);
+					ordenado=false;
+				}
+			}
+			if(ordenado==true){
+				break;
+			}
+		}
+		cout<<"vueltas: "<<it<<endl;
+	}
+};
+
+
+template <class T>
+class InsertionSort: public Sort<T>{
+	public:
+	void sort(T *a, int size){
+		for(int i=1; i<size; i++){
+			for(int j=i; j>0; j--){
+				if(a[j]<a[j-1]){
+					this->intercambiar(a, j, j-1);
+				}else{
+					break;
+				}
+			}
+		}
+	}
+};
+
+template <class T>
+class MergeSort: public Sort<T>{
+	public:
+	void sort(T *a, int size){
+	}
+	void merge(T *a, int inicio, int medio, int fin){
+		//Tam de la copia
+		int tamIzq=medio-inicio+1;
+		int tamDer=fin-medio;
+
+		//Crear espacio para copia
+		T *copiaIzq=new T[tamIzq]();
+		T *copiaDer=new T[tamDer]();
+		//Copiando los elementos
+		for(int i=0; i<tamIzq; i++){
+			copiaIzq[i]=a[inicio+i];
+		}
+		for(int i=0; i<tamDer; i++){
+			copiaDer[i]=a[medio+1+i];
+		}
+		//Indices
+		int I=0;
+		int D=0;
+		int x=inicio;
+		//Comparaciones
+		while(I<tamIzq&&D<tamDer){
+			if(copiaIzq[I]<copiaDer[D]){
+				a[x]=copiaIzq[I];
+				I++;
+			}else{
+				a[x]=copiaDer[D];
+				D++;
+			}
+			x++;
+		}
+		if(I==tamIzq){
+			while(D<tamDer){
+				a[x]=copiaDer[D];
+				D++;
+				x++;
+			}
+		}else{
+			while(I<tamIzq){
+				a[x]=copiaIzq[I];
+				I++;
+				x++;
+			}
+		}	
+	}
+};
+
 
 int main(){
-	int size=5;
-	int a[size]={5,4,3,2,1};
-	SelectionSort<int> s;
+	int size=10;
+	int a[size]={10,0,0,1,3,5,2,4,0,10};
+	MergeSort<int> s;
 	s.imprimirArreglo(a, size);
-	s.sort(a, size);
+	s.merge(a, 3, 5, 7);
 	s.imprimirArreglo(a,size);
 	return 0;
 }
