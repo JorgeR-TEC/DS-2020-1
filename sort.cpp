@@ -87,9 +87,26 @@ class InsertionSort: public Sort<T>{
 
 template <class T>
 class MergeSort: public Sort<T>{
+	
+	
 	public:
 	void sort(T *a, int size){
+		sortAux(a, 0, size-1);
 	}
+	
+	private:
+	void sortAux(T *a, int inicio, int fin){
+		if(inicio>=fin){
+			return;
+		}
+		int medio=(fin+inicio)/2;
+		sortAux(a, inicio, medio);
+		sortAux(a, medio+1, fin);
+		merge(a, inicio, medio, fin);
+	}
+	
+	
+	
 	void merge(T *a, int inicio, int medio, int fin){
 		//Tam de la copia
 		int tamIzq=medio-inicio+1;
@@ -136,13 +153,51 @@ class MergeSort: public Sort<T>{
 	}
 };
 
+template <class T>
+class QuickSort: public Sort<T>{
+	public:
+	void sort(T *a, int size){
+		sortAux(a, 0, size-1);
+	}
+	
+	private:
+	void sortAux(T *a, int inicio, int fin){
+		if(fin<=inicio){
+			return;
+		}
+		int v=partition(a, inicio, fin);
+		sortAux(a, inicio, v-1);
+		sortAux(a, v+1, fin);
+	}
+	
+	int partition(T *a, int inicio, int fin){
+		int v=inicio;
+		int lo=v+1;
+		int hi=fin;
+		while(true){
+			while(a[lo]<a[v] && lo<=fin){
+				lo++;
+			}
+			while(a[hi]>a[v]&&hi>=inicio){
+				hi--;
+			}
+			if(lo>=hi){
+				break;
+			}
+			this->intercambiar(a, lo,hi);
+		}
+		this->intercambiar(a, v, hi);
+		return hi;
+	}
+};
 
 int main(){
-	int size=10;
-	int a[size]={10,0,0,1,3,5,2,4,0,10};
-	MergeSort<int> s;
+	int size=9;
+	int a[size]={5,1,3,4,2,7,6,8,9};
+	QuickSort<int> s;
 	s.imprimirArreglo(a, size);
-	s.merge(a, 3, 5, 7);
+	s.sort(a, size);
+	//s.partition(a,0, 4);
 	s.imprimirArreglo(a,size);
 	return 0;
 }
