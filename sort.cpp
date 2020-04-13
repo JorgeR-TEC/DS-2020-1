@@ -190,14 +190,3 @@ class QuickSort: public Sort<T>{
 		return hi;
 	}
 };
-
-int main(){
-	int size=9;
-	int a[size]={5,1,3,4,2,7,6,8,9};
-	QuickSort<int> s;
-	s.imprimirArreglo(a, size);
-	s.sort(a, size);
-	//s.partition(a,0, 4);
-	s.imprimirArreglo(a,size);
-	return 0;
-}
