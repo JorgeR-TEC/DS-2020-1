@@ -56,6 +56,25 @@ class Vector{
 			}
 		}
 		
+		void setElemento(T elemento, int posicion){
+			if(posicion<count){
+				a[posicion]=elemento;
+			}
+		}
+		
+		T getElemento(int posicion){
+			if(posicion<count){
+				return a[posicion];
+			}
+			return NULL;
+		}
+		T operator[](int posicion){
+			if(posicion<count){
+				return a[posicion];
+			}
+			return NULL;
+		}
+		
 		void imprimir(){
 			for(int i=0; i<count; i++){
 				cout<<a[i]<<",";
@@ -66,6 +85,27 @@ class Vector{
 		void ordenar(){
 			QuickSort<T> quicksort;
 			quicksort.sort(a, count);
+		}
+		
+		T removerPosicion(int posicion){
+			if(posicion>=count){
+				return NULL;
+			}
+			T elemento=a[posicion];
+			for(int i=posicion; i<count; i++){
+				a[i]=a[i+1];
+			}
+			count--;
+			return elemento;
+		}
+		
+		void remover(T elemento){
+			for(int i=0; i<count; i++){
+				if(elemento==a[i]){
+					removerPosicion(i);
+					return;
+				}
+			}
 		}
 		
 };
@@ -81,5 +121,8 @@ int main(){
 	v.insert(0, 1);
 	cout<<"count: "<<v.count<<", size: "<<v.size<<endl;
 	v.imprimir();
-	
+	v.insert(6, 1);
+	v.imprimir();
+	v.remover(3);
+	v.imprimir();
 }
