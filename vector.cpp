@@ -7,6 +7,16 @@ template <class T>
 class Vector{
 	private:
 		T *a;
+		void extender(){
+			size=size*2;
+			T *temp=new T[size]();
+			for(int i=0; i<count; i++){
+				temp[i]=a[i];
+			}
+			delete [] a;
+			a=temp;
+		}
+		
 	public:
 		int size;
 		int count;
@@ -20,37 +30,29 @@ class Vector{
 			a=new T[s]();
 			count=0;
 		}
-		
+			
 		void append(T elemento){
 			if(count<size){
 				a[count]=elemento;
 				count++;
 			}else{
-				size=size*2;
-				T *temp=new T[size]();
-				for(int i=0; i<count; i++){
-					temp[i]=a[i];
-				}
-				delete [] a;
-				a=temp;
-				a[count]=elemento;
-				count++;
+				extender();
+				append(elemento);
 			}
 		}
 		
 		void insert(T elemento, int posicion){
-			cout<<"debug"<<endl;
-			cout<<posicion<<endl;
-			cout<<count<<endl;
-			cout<<size<<endl;
-			if(posicion>size){
+			if(posicion>=count){//caso 1
 				append(elemento);
-			}else if(count+1<size){
-				for(int i=count; i>=posicion; i--){
-					a[i+1]=a[i];
+			}else if(count<size){//caso 2
+				for(int i=count; i>posicion; i--){
+					a[i]=a[i-1];
 				}
 				a[posicion]=elemento;
 				count++;
+			}else{//caso 3
+				extender();
+				insert(elemento, posicion);//llamar para caso 2
 			}
 		}
 		
