@@ -79,16 +79,16 @@ class LinkedList{
 			insert(toAdd, pos);
 		}
 		
-		T removePos(int pos){
+		Nodo<T> *removePos(int pos){
 			if(root==NULL){
 				return NULL;
 			}
 			Nodo<T> *temp=root;
 			if(pos==0){
 				root=root->next;
-				T copia=temp->value;
-				delete temp;
-				return copia;
+				//T copia=temp->value;
+				//delete temp;
+				return temp;
 			}
 			int count=0;
 			while(count<pos-1&&temp->next!=NULL){
@@ -98,11 +98,34 @@ class LinkedList{
 			if(count==pos-1){
 				Nodo<T> *toDelete=temp->next;
 				temp->next=toDelete->next;//temp->next=temp->next->next;
-				T copia=toDelete->value;
-				delete toDelete;
-				return copia;
+				//T copia=toDelete->value;
+				//delete toDelete;
+				return toDelete;
 			}
 			return NULL;
+		}
+		
+		void remove(T value){
+			if(root==NULL){
+				return;
+			}
+			Nodo<T> *temp=root;
+			if(value==root->value){
+				root=root->next;
+				delete temp;
+				return;
+			}
+			while(temp->next!=NULL){
+				if(temp->next->value==value){
+					Nodo<T> *toDelete=temp->next;
+					temp->next=toDelete->next;
+					delete toDelete;
+					return;
+				}else{
+					temp=temp->next;
+				}
+			}
+			return;
 		}
 		
 		
@@ -118,17 +141,8 @@ int main(){
 	ll.imprimir();
 	ll.insert(20, 1);
 	ll.imprimir();
-	int a=ll.removePos(2);
-	if(a!=NULL){
-		cout<<"removido "<<a<<" de la lista"<<endl;
-	}
-	
-	a=ll.removePos(100);
-	if(a!=NULL){
-		cout<<"removido "<<a<<" de la lista"<<endl;
-	}else{
-		cout<<"No se pudo remover"<<endl;
-	}
+    ll.remove(20);
+	ll.remove(20);
 	ll.imprimir();
 	
 
