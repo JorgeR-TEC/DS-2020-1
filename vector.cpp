@@ -110,7 +110,7 @@ class Vector{
 		
 };
 
-int main(){
+/*int main(){
 	Vector<int> v(10);
 	v.append(3);
 	v.imprimir();
@@ -125,4 +125,4 @@ int main(){
 	v.imprimir();
 	v.remover(3);
 	v.imprimir();
-}
+}*/

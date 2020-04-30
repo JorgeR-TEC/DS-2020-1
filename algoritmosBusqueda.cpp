@@ -67,7 +67,7 @@ int busquedaBinaria(int *a, int inicio, int fin, int buscado){
 }
 
 
-int main(){
+/*int main(){
 	int size=10000;
 	int *a=new int[size]();
 	for(int i=0; i<size; i++){
@@ -84,4 +84,4 @@ int main(){
 	duracion=duration_cast<nanoseconds>(fin-inicial).count();
 	cout<<"secuencial\t"<<duracion<<endl;
 	return 0;
-}
+}*/

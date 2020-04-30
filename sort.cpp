@@ -175,10 +175,10 @@ class QuickSort: public Sort<T>{
 		int lo=v+1;
 		int hi=fin;
 		while(true){
-			while(a[lo]<a[v] && lo<=fin){
+			while(a[lo]<a[v] && lo<fin){
 				lo++;
 			}
-			while(a[hi]>a[v]&&hi>=inicio){
+			while(a[hi]>a[v]&&hi>inicio){
 				hi--;
 			}
 			if(lo>=hi){

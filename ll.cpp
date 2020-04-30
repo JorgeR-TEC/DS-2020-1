@@ -78,17 +78,24 @@ class LinkedList{
 			Nodo<T> *toAdd= new Nodo<T>(value);
 			insert(toAdd, pos);
 		}
+
+		int isEmpty(){
+			if(root==NULL){
+				return 1;
+			}
+			return 0;
+		}
 		
-		Nodo<T> *removePos(int pos){
+		T removePos(int pos){
 			if(root==NULL){
 				return NULL;
 			}
 			Nodo<T> *temp=root;
 			if(pos==0){
 				root=root->next;
-				//T copia=temp->value;
-				//delete temp;
-				return temp;
+				T copia=temp->value;
+				delete temp;
+				return copia;
 			}
 			int count=0;
 			while(count<pos-1&&temp->next!=NULL){
@@ -98,9 +105,9 @@ class LinkedList{
 			if(count==pos-1){
 				Nodo<T> *toDelete=temp->next;
 				temp->next=toDelete->next;//temp->next=temp->next->next;
-				//T copia=toDelete->value;
-				//delete toDelete;
-				return toDelete;
+				T copia=toDelete->value;
+				delete toDelete;
+				return copia;
 			}
 			return NULL;
 		}
@@ -134,7 +141,7 @@ class LinkedList{
 		
 };
 
-int main(){
+/*int main(){
 	LinkedList<int> ll;
 	ll.append(5);
 	ll.append(3);
@@ -147,4 +154,4 @@ int main(){
 	
 
 	return 0;
-}
+}*/
