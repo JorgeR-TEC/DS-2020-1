@@ -105,7 +105,64 @@ void DoubleLinkedList<T>::imprimir(){
 	cout<<endl;
 }
 
+template <class T>
+void DoubleLinkedList<T>::removePos(int pos){
+	Nodo<T> *temp=root;
+	int c=0;
+	while(temp!=NULL){
+		if(c==pos){
+			//t1->next=t3
+			temp->prev->next=temp->next;
+			//t3->prev=t1
+			temp->next->prev=temp->prev;
+			count--;
+			delete temp;
+			return;
+		}else{
+			temp=temp->next;
+			c++;
+		}
+	}
+}
 
+template <class T>
+void DoubleLinkedList<T>::remove(T value){
+	Nodo<T> *temp=root;
+	int c=0;
+	while(temp!=NULL){
+		if(temp->value==value){
+			//t1->next=t3
+			temp->prev->next=temp->next;
+			//t3->prev=t1
+			temp->next->prev=temp->prev;
+			count--;
+			delete temp;
+			return;
+		}else{
+			temp=temp->next;
+			c++;
+		}
+	}
+}
+
+template <class T>
+void DoubleLinkedList<T>::sort(){
+	Nodo<T> *posI=root;
+	while(posI!=NULL){
+		Nodo<T> *posP=posI;
+		Nodo<T> *posJ=posI->next;
+		while(posJ!=NULL){
+			if(posJ->value<posP->value){
+					posP=posJ;
+			}
+			posJ=posJ->next;
+		}
+		T value=posI->value;
+		posI->value=posP->value;
+		posP->value=value;
+		posI=posI->next;
+	}
+}
 int main(){
 	DoubleLinkedList<int> dll;
 	dll.append(2);
@@ -114,6 +171,10 @@ int main(){
 	dll.imprimir();
 	dll.insert(5, 1);
 	dll.insert(6,1);
+	dll.imprimir();
+	dll.remove(5);
+	dll.imprimir();
+	dll.sort();
 	dll.imprimir();
 
 	return 0;
