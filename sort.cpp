@@ -8,8 +8,8 @@ class Sort{
 	virtual void sort(T *a, int size)=0;
 
 	void intercambiar(T *a, int p1, int p2){
-        T x= a[p1];
-        a[p1] = a[p2];
+        T x= a[p1];//T value=a.getElemento(p1)
+        a[p1] = a[p2];//a.setElemento(a.getElemento(p2), p1);
         a[p2] = x;
     }
 
@@ -34,6 +34,21 @@ template <class T>
 class SelectionSort: public Sort<T>{
 	public:
 	void sort(T *a, int size){
+		/*
+		int i=0;
+		while(i<size){
+			int p=i;
+			int j=i+1;
+			while(j<size){
+				if(a[j]<a[p]){
+					p=j;
+				}
+				j++;
+			}
+			//intercambiar();
+			i++;
+		}
+		*/
 		for(int i=0; i<size-1; i++){
 			int p=i;
 			for(int j=i+1; j<size; j++){

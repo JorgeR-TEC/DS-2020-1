@@ -137,7 +137,12 @@ class LinkedList{
 		
 		
 		
-		
+		bool isEmpty(){
+			if(root==NULL){
+				return true;
+			}
+			return false;
+		}
 		
 };
 
