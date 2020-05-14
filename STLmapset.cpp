@@ -3,6 +3,9 @@
 #include <set>
 using namespace std;
 
+
+//unordered_map O(1)
+//map O(log n)
 class Estudiante{
 	public:
 	int matricula;
@@ -49,7 +52,10 @@ int main(){
 	string b="reprobado";
 	Estudiante a(965439, "jorge", 92.5);
 	estudiantes.insert({a, b});
-	
+
+	for(auto i=estudiantes.begin(); i!=estudiantes.end(); i++){
+		cout<<"Key: "<<(*i).first.matricula<<" Value: "<<i->second<<endl;
+	}
 	/*map<int, string> m;
 	m.insert(pair<int, string>(1,"a"));
 	m.insert({2, "b"});
