@@ -23,6 +23,7 @@ template <class K, class V>
 class Dictionary{
 	public:
 	vector<KeyPair<K,V>> *dict;
+	vector<K> *set;
 	int positions;
 	
 	Dictionary(){

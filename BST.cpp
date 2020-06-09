@@ -90,6 +90,43 @@ class BST{
 		inorden(temp->derecho);
 	}
 	
+	void borrar(T id){
+		root=borrar(root, id);
+	}
+	
+	Nodo<T> *borrar(Nodo<T> *raizS, T id){
+		if(raizS==NULL){//el nodo actual no existe
+			return NULL;
+		}
+		if(id<raizS->id){//el valor buscado es menor que el del nodo actual
+			raizS->izquierdo=borrar(raizS->izquierdo, id);
+		}else if(id>raizS->id){//el valor buscado es mayor que el del nodo actual
+			raizS->derecho=borrar(raizS->derecho, id);
+		}else{//el valor buscado es del del nodo actual
+			if(raizS->derecho==NULL&&raizS->izquierdo==NULL){
+				delete(raizS);
+				return NULL;
+			}else if(raizS->derecho==NULL&&raizS->izquierdo!=NULL){
+				Nodo<T> *regreso=raizS->izquierdo;
+				delete(raizS);
+				return regreso;
+			}
+			else if(raizS->derecho!=NULL&&raizS->izquierdo==NULL){
+				Nodo<T> *regreso=raizS->derecho;
+				delete(raizS);
+				return regreso;
+			}else{// el nodo a borrar tiene 2 hijos
+				Nodo<T> *sustituto=raizS->izquierdo;
+				while(sustituto->derecho!=NULL){
+					sustituto=sustituto->derecho;
+				}
+				raizS->id=sustituto->id;
+				raizS->izquierdo=borrar(raizS->izquierdo, sustituto->id);
+			}
+		}
+		return raizS;
+	}
+	
 	/*Nodo<T> a(5);
 	Nodo<T> *b=new Nodo<T>(5);
 	a.derecho;
@@ -101,10 +138,14 @@ int main(){
 	BST<int> a;
 	a.insertar(10);
 	a.insertar(3);
-	a.insertar(11);
+	a.insertar(20);
 	a.insertar(40);
+	a.insertar(45);
+	a.insertar(11);
 	a.recorrido();
 	cout<<a.buscar(3)<<endl;
 	cout<<a.buscar(7)<<endl;
+	a.borrar(20);
+	a.recorrido();
 	return 0;
 }
